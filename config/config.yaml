@@ -1,0 +1,36 @@
+# Network Configuration
+network:
+  max_bandwidth: 10000  # kbps
+  min_bandwidth: 100    # kbps
+  buffer_size: 30       # seconds
+  initial_buffer: 5     # seconds
+
+# Video Configuration
+video:
+  segment_duration: 4   # seconds
+  available_bitrates: [240, 360, 480, 720, 1080, 1440, 2160]  # p
+  default_bitrate: 480  # p
+
+# Machine Learning Configuration
+ml:
+  model_type: "lstm"    # lstm, gru, cnn
+  lookback_window: 10   # number of past observations to consider
+  features: ["bandwidth", "latency", "loss_rate", "buffer_level"]
+  target: "optimal_bitrate"
+  train_test_split: 0.8
+  epochs: 100
+  batch_size: 32
+  learning_rate: 0.001
+
+# MPET Configuration
+mpet:
+  max_paths: 3
+  path_selection_strategy: "bandwidth_weighted"  # bandwidth_weighted, round_robin, lowest_latency
+  packet_scheduling_algorithm: "earliest_deadline_first"  # earliest_deadline_first, weighted_fair_queuing
+  path_switching_threshold: 0.2  # relative change in path quality to trigger a switch
+
+# QoE Configuration
+qoe:
+  rebuffering_penalty: 4.3
+  bitrate_weight: 1.0
+  bitrate_switch_penalty: 0.02
